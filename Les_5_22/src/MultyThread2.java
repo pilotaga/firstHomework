@@ -16,18 +16,22 @@ public class MultyThread2 implements Runnable {
 
     @Override
     public void run() {
-        countArr();
+        countTime();
     }
 
-    public void countArr() {
+    public void countTime() {
         a = System.currentTimeMillis();
+        countArr();
+        System.out.println(System.currentTimeMillis() - a);
+    }
+
+    public synchronized void countArr() {
         System.arraycopy(arr, 0, a1, 0, h);
         System.arraycopy(arr, h, a2, 0, h);
         new Thread(() -> countHalfArr(a1));
         new Thread(() -> countHalfArr(a2));
         System.arraycopy(a1, 0, arr, 0, h);
         System.arraycopy(a2, 0, arr, h, h);
-        System.out.println(System.currentTimeMillis() - a);
     }
 
     public void countHalfArr(float[] arr) {
